@@ -1,0 +1,9 @@
+growroot()
+{
+        echo "[] linux-rootfs-resize ..."
+        root_dev=$(readlink ${ROOT}| sed "s/[^a-z]//g")
+        part_num=$(readlink ${ROOT}| sed "s/[^0-9]//g")
+        e2fsck -p -f /dev/${root_dev}${part_num}
+		echo -e "resize\n${part_num}\n\n5G" | parted /dev/${root_dev} 
+}
+
