@@ -138,7 +138,7 @@ distro=""
     # proc_name="growroot"
     call_insert_point="^.*pre_mountroot$"
     # call_insert_point="^source_all pre-mount"
-    grub_config="/boot/grub/grub.cfg"
+    grub_config="/boot/grub2/grub.cfg"
     grub="grub2"
 	grub_mkconfig="grub2-mkconfig"
   fi
