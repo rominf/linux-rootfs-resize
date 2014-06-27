@@ -90,7 +90,7 @@ grub-mod() {
       # copy kernel
       [ ! -f ${kernel}-mod ] && cp ${kernel} ${kernel}-mod
       # generate new grub2 config
-      grub-mkconfig -o ${grub_config}
+      ${grub_mkconfig} -o ${grub_config}
     ;;
   esac
 }
@@ -128,7 +128,7 @@ distro=""
   if [[ "$(cat /etc/issue)" == *openSUSE\ 13\.1* ]]; then
     distro="openSUSE-13.1"
     initrd_path="bin sbin usr/bin usr/sbin"
-    initrd="/boot/initrd.img-$(uname -r)"
+    initrd="/boot/initrd-$(uname -r)"
     kernel="/boot/vmlinuz-$(uname -r)"
     init_script="scripts/local"
     init_script="init"
@@ -140,6 +140,7 @@ distro=""
     # call_insert_point="^source_all pre-mount"
     grub_config="/boot/grub/grub.cfg"
     grub="grub2"
+	grub_mkconfig="grub2-mkconfig"
   fi
 # RedHat derivate
 [ -f /etc/redhat-release ] &&
@@ -168,6 +169,7 @@ distro=""
     call_insert_point="^.*pre_mountroot$"
     grub_config="/boot/grub/grub.cfg"
     grub="grub2"
+	grub_mkconfig="grub-mkconfig"
   elif [[ "$(cat /etc/issue)" == *Debian\ GNU\/Linux\ 6* ]]; then
     distro="debian-6"
     initrd_path="bin sbin"
@@ -179,6 +181,7 @@ distro=""
     call_insert_point="^.*pre_mountroot$"
     grub_config="/boot/grub/grub.cfg"
     grub="grub2"
+	grub_mkconfig="grub-mkconfig"
   fi
 
 # exit if distro is not supported
